@@ -1,0 +1,175 @@
+class ArrayList extends Array {
+    constructor() {super(...[]);}
+    size() {return this.length;}
+    add(x) {this.push(x);}
+    get(i) {return this[i];}
+    remove(i) {this.splice(i,2);}
+}
+
+let bgColor = [ "#ded9d9" , "#a18100", "#10650e", "#edef1c" , "#FF2323" , "#FE8505" , "#560c0e", "#05520d", "#73b1bc" , "#df6dae" , "#469600" , "#fafafa" , "#B5B2B2" , "#F9CD52" , "#d10b0b" , "#d77206" , "#0A38D8" , "#E91E92" , "#469696" , "#814C4C", "#AA3377" , "#24B6F8" , "#A48F00"] ; let num ; let mark = new ArrayList(); //PImage bg;
+let colorIndex ; 
+let xoff;
+let yoff;
+let shadowColor;
+
+let shadowBlur;
+let cut;
+let cutX;
+
+
+function preload(){
+	//create an array of image files names
+	possible_images = [
+		    
+    
+        "canvas204.png",
+  
+        "canvas24.png",
+        "canvas240.png",
+     
+        "canvas209.png",
+      "canvas29.png",
+        
+     
+    ];
+
+    //pick a random image
+  	var pos = floor(random(possible_images.length));
+  	//load the picked image
+  	
+    BPM = loadImage(possible_images[pos]);
+
+   
+}
+
+
+function setup ( ) { 
+  createCanvas(800,800 ) ; 
+            
+
+   
+//var random = Math.random();
+//if (random < 0.33) {
+ // drawingContext.shadowOffsetX = -4;
+//} else if (random >= 0.33 && random < 0.67) {
+ // drawingContext.shadowOffsetX = 0;
+//} else {
+//  drawingContext.shadowOffsetX = 3;
+//}
+ // drawingContext.shadowOffsetX =0
+//drawingContext.shadowOffsetY = random(10) > 0.5 ? -2 : 2;
+
+//drawingContext.shadowBlur = 18
+ // drawingContext.shadowBlur = random(10) > 0.5 ? 22 : 14;
+
+
+//let cutX = random(width);
+//let x = Mark.x;
+//if (x < cutX) {
+//  drawingContext.shadowColor = color("white");
+//} else {
+ // drawingContext.shadowColor = color("black");
+//} 
+      
+ // if (x < Mark.x) {
+ // drawingContext.shadowColor = color("white");
+//} else {
+//  drawingContext.shadowColor = color("black");
+//}
+   
+  //if (x < Mark.x + Mark.width / 2) {
+ // drawingContext.shadowColor = color("white");
+//} else {
+//  drawingContext.shadowColor = color("black");
+//}
+  
+ // let cutX = random(width);
+//let x = Mark.x;
+
+//if (x < cutX) {
+ // drawingContext.shadowColor = color("white");
+//} else {
+//  drawingContext.shadowColor = color("black");
+//}
+  
+  //let markX = random(width);
+//let x = Mark.x;
+//if (x < cutX) {
+//  drawingContext.shadowColor = color("white");
+//} else {
+ // drawingContext.shadowColor = color("black");
+//}
+  
+ // let cutX = random(width);
+
+  // Set shadow color
+ // let x = Mark.x;
+ // if (x < cutX) {
+ //   drawingContext.shadowColor = //color("white");
+//  } else {
+ //   drawingContext.shadowColor = //color("red");
+ // }
+
+
+  
+  
+  
+smooth( 8 ) ; noStroke( ) ; num= int ( random( 1 , 8 ) ) ; 
+colorIndex= int ( random( bgColor . length- 1 ) ) ; for ( let i = 0 ; i< num; i++ ) { mark . add( new Mark ( ) ) ; } } 
+
+function draw ( ) { 
+//drawingContext.shadowColor = shadowColor;
+    let cutX = random(width);
+let x = Mark.x;
+
+  
+if (x < cutX) {
+  push();
+  fill(colorIndex);
+  drawingContext.shadowColor = color("lightgrey");
+  drawingContext.shadowBlur = 10;
+  drawingContext.shadowOffsetX = 5;
+  drawingContext.shadowOffsetY = 5;
+   beginShape( ) ; vertex( this.x, this.y) ; bezierVertex( this.x, this.y, this.x+ this.space, this.y+ ( this.h/ 2 ) , this.x+ this.carve, this.y+ this.h) ; bezierVertex( this.x+ this.carve, this.y+ this.h, this.x+ this.space/ 2 , this.y+ ( this.h/ 2 ) , this.x, this.y) ; endShape( ) ; //for ( int i = 0; i < line.length; i++) {
+//  line[i].draw();
+//}
+  pop();
+} else {
+  push();
+  fill(colorIndex);
+  drawingContext.shadowColor = color("red");
+  drawingContext.shadowBlur = 10;
+  drawingContext.shadowOffsetX = 5;
+  drawingContext.shadowOffsetY = 5;
+   beginShape( ) ; vertex( this.x, this.y) ; bezierVertex( this.x, this.y, this.x+ this.space, this.y+ ( this.h/ 2 ) , this.x+ this.carve, this.y+ this.h) ; bezierVertex( this.x+ this.carve, this.y+ this.h, this.x+ this.space/ 2 , this.y+ ( this.h/ 2 ) , this.x, this.y) ; endShape( ) ; //for ( int i = 0; i < line.length; i++) {
+//  line[i].draw();
+//}
+  pop();
+}
+
+background( bgColor[ colorIndex] ) ; 
+
+
+   image(BPM, 0, 0, 800, 800); 
+  checkOverLap( ) ; for ( let m of mark) { m . display( ) ; } } function checkOverLap ( ) { 
+    for ( let a = 0 ; a< mark . size( ) ; a++ ) { 
+      for ( let b = 0 ; b< 4 ; b++ ) { 
+        let the_user = mark . get( a) . line [ b] ; 
+        for ( let i = 0 ; i< mark . size( ) ; i++ ) { 
+          if ( a== i) continue ; let intersection = the_user . intersects_at( mark . get( i) . line [ 0 ] ) ; 
+          let intersection2 = the_user . intersects_at( mark . get( i) . line [ 1 ] ) ; if ( intersection!= null || intersection2!= null ) { mark . get( i) . initialize ( ) ; i-= 1 ; } } } } } function mousePressed ( ) { mark . clear( ) ; num= int ( random( 1 , 8 ) ) ; for ( let i = 0 ; i< num; i++ ) { mark . add( new Mark ( ) ) ; } } class Line { start ;end ; constructor( _start , _end ) { this.start= _start; this.end= _end; } get_start ( ) { return this.start; } get_end ( ) { return this.end; } draw ( ) { line( this.start . x, this.start . y, this.end . x, this.end . y) ; } line_itersection ( one , two ) { let x1 = one . get_start( ) . x ; let y1 = one . get_start( ) . y ; let x2 = one . get_end( ) . x ; let y2 = one . get_end( ) . y ; let x3 = two . get_start( ) . x ; let y3 = two . get_start( ) . y ; let x4 = two . get_end( ) . x ; let y4 = two . get_end( ) . y ; let bx = x2- x1; let by = y2- y1; let dx = x4- x3; let dy = y4- y3; let b_dot_d_perp = bx* dy- by* dx; if ( b_dot_d_perp== 0 ) return null ; let cx = x3- x1; let cy = y3- y1; let t = ( cx* dy- cy* dx) / b_dot_d_perp; if ( t< 0 || t> 1 ) return null ; let u = ( cx* by- cy* bx) / b_dot_d_perp; if ( u< 0 || u> 1 ) return null ; return new p5.Vector ( x1+ t* bx, y1+ t* by) ; } intersects_at ( other ) { return this.line_itersection( this , other) ; } } function random_bounded_vector ( ) { return new p5.Vector ( random( width) , random( height) ) ; } 
+class Mark { 
+            max_cut = 56 ; // thickness of the cuts
+min_cut = 12 ; maxCarve = 240 ; // max carve of the cuts
+border_ofset = 180 ; // border gap, works only now and than :, but i like it somehow like that 
+maxHeight = 640 ; // max height of the cuts
+minHeight = 280 ; // min height of the cuts
+ofset = 15 ; // min gap betwin cuts, yes i know to write it correctly in diff occasions
+error = 1 ; x ;y ; space ;carve ;gap ;h ; line = new Array(4); constructor( ) { this.initialize( ) ; } display ( ) { fill( 0 ) ; //strokeWeight(1);
+// stroke(80,100);
+push( ) ; beginShape( ) ; vertex( this.x, this.y) ; bezierVertex( this.x, this.y, this.x+ this.space, this.y+ ( this.h/ 2 ) , this.x+ this.carve, this.y+ this.h) ; bezierVertex( this.x+ this.carve, this.y+ this.h, this.x+ this.space/ 2 , this.y+ ( this.h/ 2 ) , this.x, this.y) ; endShape( ) ; //for ( int i = 0; i < line.length; i++) {
+//  line[i].draw();
+//}
+pop( ) ; } initialize ( ) { 
+  colorIndex= int ( random( bgColor . length) ) ; 
+  this.x= int ( random( this.border_ofset, width- this.border_ofset) ) ; this.y= int ( random( this.border_ofset/ 2 , height- this.maxHeight) ) ; this.h= int ( random( this.minHeight, this.maxHeight) ) ; this.carve= int ( random( - this.maxCarve, this.maxCarve) ) ; this.space= int ( random( this.min_cut, this.max_cut) ) ; this.gap= int ( random( abs( this.carve) , this.carve+ 20 ) ) ; this.line[ 0 ] = new Line ( new p5.Vector ( this.x, this.y) , new p5.Vector ( ( ( this.x+ ( this.carve/ 4 ) ) + this.error) , this.y+ ( this.h/ 2 ) ) ) ; this.line[ 1 ] = new Line ( new p5.Vector ( this.x+ ( this.carve/ 4 ) , this.y+ ( this.h/ 2 ) ) , new p5.Vector ( this.x+ this.carve, this.y+ this.h) ) ; this.line[ 2 ] = new Line ( new p5.Vector ( this.x+ this.ofset, this.y) , new p5.Vector ( ( ( this.x+ ( this.carve/ 8 ) ) + this.error) , this.y+ ( this.h/ 2 ) ) ) ; this.line[ 3 ] = new Line ( new p5.Vector ( this.x+ ( this.carve/ 8 ) , this.y+ ( this.h/ 2 ) ) , new p5.Vector ( ( this.x+ this.carve) - this.ofset, this.y+ this.h) ) ; } }
